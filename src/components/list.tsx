@@ -5,7 +5,7 @@ type List = {
 
 const List = (props: List) => {
   const { list } = props;
-  const listItems = list.map((item) => <li key={item}>{item}</li>);
+  const listItems = list?.map((item) => <li key={item}>{item}</li>);
   return (
     <>
       <div>

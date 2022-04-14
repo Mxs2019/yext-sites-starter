@@ -1,28 +1,5 @@
-type Hours = {
-  title?: string;
-  hours: Week;
-  children?: React.ReactNode;
-};
-
-interface Week extends Record<string, any> {
-  monday?: Day;
-  tuesday?: Day;
-  wednesday?: Day;
-  thursday?: Day;
-  friday?: Day;
-  saturday?: Day;
-  sunday?: Day;
-}
-
-type Day = {
-  isClosed: boolean;
-  openIntervals: OpenIntervals[];
-};
-
-type OpenIntervals = {
-  start: string;
-  end: string;
-};
+import cx from 'classnames';
+import { Day, Hours } from '../types/location';
 
 const todayIndex = new Date().getDay();
 
@@ -64,13 +41,13 @@ const defaultSorter: { [key: string]: number } = {
   saturday: 6,
 };
 
-function sortByDay(week: Week): Week {
+function sortByDay(week: Hours): Hours {
   const tmp = [];
   for (const [k, v] of Object.entries(week)) {
     tmp[getSorterForCurrentDay()[k]] = { key: k, value: v };
   }
 
-  const orderedWeek: Week = {};
+  const orderedWeek: Hours = {};
   tmp.forEach((obj) => {
     orderedWeek[obj.key] = obj.value;
   });
@@ -78,7 +55,7 @@ function sortByDay(week: Week): Week {
   return orderedWeek;
 }
 
-const renderHours = (week: Week) => {
+const renderHours = (week: Hours) => {
   const dayDom: JSX.Element[] = [];
   for (const [k, v] of Object.entries(sortByDay(week))) {
     dayDom.push(<DayRow key={k} dayName={k} day={v} isToday={isDayToday(k)} />);
@@ -111,12 +88,17 @@ const DayRow = (props: DayRow) => {
   const { dayName, day, isToday } = props;
 
   return (
-    <tr className={isToday ? 'bg-gray-200 font-bold' : ''}>
-      <td className="capitalize text-left pl-1 pr-4">
+    <tr
+      className={cx('', {
+        'bg-indigo-100 bg-opacity-50 font-bold text-indigo-600': isToday,
+        'hover:bg-indigo-100': !isToday,
+      })}
+    >
+      <td className="capitalize text-left px-4 py-1">
         <span>{dayName}</span>
       </td>
       {!day.isClosed && (
-        <td className="pr-1">
+        <td className="px-4">
           <span>
             {convertTo12HourFormat(day.openIntervals[0].start, true)} -{' '}
             {convertTo12HourFormat(day.openIntervals[0].end, true)}
@@ -124,7 +106,7 @@ const DayRow = (props: DayRow) => {
         </td>
       )}
       {day.isClosed && (
-        <td className="pr-1">
+        <td className="px-4">
           <span>Closed</span>
         </td>
       )}
@@ -132,13 +114,10 @@ const DayRow = (props: DayRow) => {
   );
 };
 
-const Hours = (props: Hours) => {
-  const { title, hours } = props;
-
+const HoursTable = ({ hours }: { hours: Hours }) => {
   return (
     <>
-      <div className="text-xl font-semibold mb-4">{title}</div>
-      <table>
+      <table className="w-full">
         <thead className="sr-only">
           <tr>
             <th>Day of the Week</th>
@@ -151,4 +130,4 @@ const Hours = (props: Hours) => {
   );
 };
 
-export default Hours;
+export default HoursTable;

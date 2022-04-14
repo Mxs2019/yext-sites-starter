@@ -1,10 +1,7 @@
-type Coordinates = {
-  latitude: string;
-  longitude: string;
-};
+import { Coordinates } from '../types/location';
 
-const StaticMap = (props: Coordinates) => {
-  const { latitude, longitude } = props;
+const StaticMap = ({ coordinates }: { coordinates: Coordinates }) => {
+  const { latitude, longitude } = coordinates;
 
   return (
     <>
