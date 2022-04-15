@@ -1,10 +1,18 @@
 {
   "features": [
     {
-      "name": "index",
-      "streamId": "products",
+      "name": "locations",
+      "streamId": "locations",
       "templateType": "JS",
       "entityPageSet": {
+        "plugin": {}
+      }
+    },
+    {
+      "name": "static",
+      "streamId": "",
+      "templateType": "JS",
+      "staticPage": {
         "plugin": {}
       }
     },
@@ -19,7 +27,7 @@
   ],
   "streams": [
     {
-      "$id": "products",
+      "$id": "locations",
       "source": "knowledgeGraph",
       "destination": "pages",
       "fields": [
@@ -32,6 +40,7 @@
         "description",
         "hours",
         "photoGallery",
+        "featuredMessage",
         "slug",
         "geocodedCoordinate",
         "services",
