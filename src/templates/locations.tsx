@@ -1,10 +1,10 @@
 import { renderToString } from 'react-dom/server';
 import ContactUs from '../components/ContactUs';
 import CTAHeader from '../components/CTAHeader';
-import Footer from '../components/Footer';
 import HeaderBanner from '../components/HeaderBanner';
 import HouseAddressSection from '../components/HoursAddressSection';
 import PageWrapper from '../components/PageWrapper';
+import SampleFooter from '../components/SampleFooter';
 import '../index.css';
 import { Location } from '../types/location';
 import { reactWrapper } from '../wrapper';
@@ -62,7 +62,7 @@ const Index = ({ data }: { data: any }) => {
       <CTAHeader name={name} />
       <HouseAddressSection location={location} />
       <ContactUs address={address} phone={mainPhone} />
-      <Footer />
+      <SampleFooter />
     </PageWrapper>
   );
 };
