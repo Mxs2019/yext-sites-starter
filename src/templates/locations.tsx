@@ -47,7 +47,8 @@ export const config = {
 };
 
 export const getPath = (data: any) => {
-  return `index/${data.document.streamOutput.uid.toString()}`;
+  const location = data.document.streamOutput as Location;
+  return `locations/${location.id}`;
 };
 
 const Index = ({ data }: { data: any }) => {
