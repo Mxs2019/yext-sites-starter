@@ -5,7 +5,7 @@ import { Location } from '../types/location';
 import Container from './Container';
 import FormattedAddress from './FormattedAddress';
 import FormattedPhoneNumber from './FormattedPhoneNumber';
-import Header from './Header';
+import Header from './Header3';
 import HoursTable from './HoursTable';
 import StaticMap from './static-map';
 
