@@ -57,6 +57,7 @@ export type Location = {
   mainPhone?: string;
   featuredMessage?: {
     description: string;
+    url?: string;
   };
 
   locale: string;

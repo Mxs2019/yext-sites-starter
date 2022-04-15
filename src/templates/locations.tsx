@@ -1,10 +1,10 @@
 import { renderToString } from 'react-dom/server';
-import { Helmet } from 'react-helmet';
 import ContactUs from '../components/ContactUs';
 import CTAHeader from '../components/CTAHeader';
 import Footer from '../components/Footer';
 import HeaderBanner from '../components/HeaderBanner';
 import HouseAddressSection from '../components/HoursAddressSection';
+import PageWrapper from '../components/PageWrapper';
 import '../index.css';
 import { Location } from '../types/location';
 import { reactWrapper } from '../wrapper';
@@ -52,26 +52,17 @@ export const getPath = (data: any) => {
 
 const Index = ({ data }: { data: any }) => {
   const { document } = data;
-  const { streamOutput } = document;
-  const { name, description, featuredMessage, address, hours, mainPhone, geocodedCoordinate, services, photoGallery } =
-    streamOutput as Location;
-
-  const location = streamOutput;
+  const location = document.streamOutput as Location;
+  const { name, description, featuredMessage, address, mainPhone } = location;
 
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{name}</title>
-        {description && <meta name="description" content={description} />}
-        <link rel="canonical" href="http://mysite.com/example" />
-      </Helmet>
-      {featuredMessage && <HeaderBanner message={featuredMessage?.description} />}
+    <PageWrapper title={name} description={description}>
+      {featuredMessage && <HeaderBanner message={featuredMessage.description} ctaURL={featuredMessage.url} />}
       <CTAHeader name={name} />
       <HouseAddressSection location={location} />
       <ContactUs address={address} phone={mainPhone} />
       <Footer />
-    </>
+    </PageWrapper>
   );
 };
 
